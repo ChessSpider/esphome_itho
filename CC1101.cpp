@@ -9,8 +9,7 @@
 CC1101::CC1101()
 {
 	SPI.begin();
-#ifdef ESP32
-	pinMode(CS, OUTPUT);
+	pinMode(SS, OUTPUT);
 #endif
 } //CC1101
 
@@ -22,11 +21,11 @@ CC1101::~CC1101()
 /***********************/
 // SPI helper functions select() and deselect()
 inline void CC1101::select(void) {
-	digitalWrite(CS, LOW);
+	digitalWrite(SS, LOW);
 }
 
 inline void CC1101::deselect(void) {
-	digitalWrite(CS, HIGH);
+	digitalWrite(SS, HIGH);
 }
 
 void CC1101::spi_waitMiso()
