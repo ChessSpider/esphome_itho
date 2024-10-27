@@ -6,12 +6,15 @@
 #include "Arduino.h"
 
 // default constructor
-CC1101::CC1101()
-{
-	SPI.begin();
-	pinMode(SS, OUTPUT);
-} //CC1101
+#define CC1101_SCK_PIN 14   // HSPI Clock
+#define CC1101_MISO_PIN 12  // HSPI MISO
+#define CC1101_MOSI_PIN 13  // HSPI MOSI
+#define CC1101_SS_PIN 15    // SS (Select Slave)
 
+CC1101::CC1101() {
+    SPI.begin(CC1101_SCK_PIN, CC1101_MISO_PIN, CC1101_MOSI_PIN, CC1101_SS_PIN);
+    pinMode(CC1101_SS_PIN, OUTPUT);  // Set SS as output
+}
 // default destructor
 CC1101::~CC1101()
 {
@@ -20,11 +23,11 @@ CC1101::~CC1101()
 /***********************/
 // SPI helper functions select() and deselect()
 inline void CC1101::select(void) {
-	digitalWrite(SS, LOW);
+	digitalWrite(CC1101_SS_PIN, LOW);
 }
 
 inline void CC1101::deselect(void) {
-	digitalWrite(SS, HIGH);
+	digitalWrite(CC1101_SS_PIN, HIGH);
 }
 
 void CC1101::spi_waitMiso()
