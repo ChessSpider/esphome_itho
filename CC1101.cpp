@@ -10,7 +10,6 @@ CC1101::CC1101()
 {
 	SPI.begin();
 	pinMode(SS, OUTPUT);
-#endif
 } //CC1101
 
 // default destructor
